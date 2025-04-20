@@ -5,7 +5,7 @@ import { UpdateCvDto } from './dto/update-cv.dto';
 import { FilterCvDto } from './dto/filter-cv.dto';
 import { Query } from '@nestjs/common/decorators/http/route-params.decorator';
 
-import { PaginationDto } from 'src/common/dto/pagination.dto';
+import { PaginationDto } from '../common/dto/pagination.dto';
 @Controller('cv')
 export class CvController {
   constructor(private readonly cvService: CvService) {}

@@ -1,20 +1,24 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from 'typeorm';
-import { Cv } from '../../cv/entities/cv.entity';
-
+import{Entity,PrimaryGeneratedColumn,Column,OneToMany} from 'typeorm';
+import{Cv} from '../../cv/entities/cv.entity';
+import { TimestampEntity } from "../../common/db/timestamp.entity";
 @Entity()
-export class User {
+export class User extends TimestampEntity {
   @PrimaryGeneratedColumn()
-  id: number;
-
+  id:number;
   @Column()
-  username: string;
-
+  username:string;
+  @Column({unique: true})
+  email:string;
   @Column()
-  email: string;
-
-  @Column()
-  password: string;
-
-  @OneToMany(() => Cv, (cv) => cv.user)
+  password:string;
+  @Column({ type: 'varchar', length: 100 })
+  salt: string;
+  @Column({ type: 'varchar', length: 50 })
+  role: string;
+  @OneToMany(
+    () =>Cv,
+    (cv:Cv) => cv.user,
+    {eager: true}
+  )
   cvs: Cv[];
 }

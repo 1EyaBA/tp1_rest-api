@@ -1,30 +1,24 @@
-// src/middleware/auth.middleware.ts
 import { Injectable, NestMiddleware } from '@nestjs/common';
-import { Request, Response, NextFunction } from 'express';
-import { verify } from 'jsonwebtoken';
+import * as jwt from 'jsonwebtoken';
 
 @Injectable()
 export class AuthMiddleware implements NestMiddleware {
-  use(req: Request, res: Response, next: NextFunction) {
+  async use(req: any, res: any, next: () => void) {
     const token = req.headers['auth-user'];
-
-    if (!token || typeof token !== 'string') {
-      return res.status(401).json({ message: 'Accès refusé : token manquant.' });
+    if (!token) {
+      return res.status(401).json({ message: 'unauthorized access' });
     }
 
     try {
-      const decoded = verify(token, 'secret'); // Remplace 'secret' par ta clé secrète
-      const { userId } = decoded as { userId: number };
-
-      if (!userId) {
-        return res.status(401).json({ message: 'Token invalide : userId manquant.' });
+      const decoded = jwt.verify(token, 'my_super_secret_key');
+      if (typeof decoded === 'string' || !('id' in decoded)) {
+        return res.status(401).json({ message: 'unauthorized access' });
       }
 
-      // Injecte userId dans la requête
-      (req as any).user = { id: userId };
+      req.userId = decoded.id;
       next();
     } catch (err) {
-      return res.status(401).json({ message: 'Token invalide ou expiré.' });
+      return res.status(401).json({ message: 'Token error', error: err.message });
     }
   }
 }

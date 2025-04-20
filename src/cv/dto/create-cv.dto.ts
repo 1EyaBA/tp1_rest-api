@@ -1,6 +1,7 @@
-import { IsNumber, IsString } from 'class-validator';
+import { IsNumber, IsOptional, IsString } from 'class-validator';
 import { DeepPartial } from 'typeorm';
-import { User } from 'src/user/entities/user.entity';
+import { User } from '../../user/entities/user.entity';
+import { Skill } from '../../skill/entities/skill.entity';
 
 export class CreateCvDto {
   @IsString()
@@ -23,4 +24,8 @@ export class CreateCvDto {
 
   // Change to DeepPartial<User>
   user: DeepPartial<User>;  // Allows passing either full or partial user object
+
+
+  @IsOptional()
+  skills?: Skill[];
 }

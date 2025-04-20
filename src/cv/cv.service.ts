@@ -125,4 +125,24 @@ export class CvService extends BaseService<Cv> {
 
     return this.repository.save(cv);
   }
+  async findByUserId(userId: number) {
+    return this.repository.find({
+      where: { user: { id: userId } },
+      relations: ['user'],
+    });
+  }
+  async findOneWithRelations(id: number, relations: string[] = ['user']): Promise<Cv> {
+    const cv = await this.repository.findOne({
+      where: { id },
+      relations,
+    });
+
+    if (!cv) {
+      throw new NotFoundException('CV not found');
+    }
+
+    return cv;
+  }
+
+
 }
