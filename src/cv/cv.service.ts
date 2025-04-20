@@ -51,7 +51,6 @@ export class CvService extends BaseService<Cv> {
 
     return await query.getMany();
   }
-  // inside CvService
 
   async findAllPaginated(paginationDto: PaginationDto) {
     const queryBuilder = this.repository.createQueryBuilder('cv');

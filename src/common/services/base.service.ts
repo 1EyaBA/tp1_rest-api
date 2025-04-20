@@ -30,7 +30,7 @@ export class BaseService<T extends ObjectLiteral> implements IBaseService<T> {
   }
 
   async remove(id: number): Promise<void> {
-    const entity = await this.findOne(id); // Will throw if not found
+    const entity = await this.findOne(id);
     await this.repository.remove(entity);
   }
 }

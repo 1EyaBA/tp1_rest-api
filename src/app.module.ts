@@ -14,14 +14,14 @@ import { CvControllerV2 } from './cv/cv.controller.v2';
 @Module({
   imports: [CvModule, UserModule, SkillModule,
     TypeOrmModule.forRoot({
-      type: 'postgres',  // or 'mysql', depending on your DB
+      type: 'postgres',
       host: 'localhost',
-      port: 5432,        // Default port for PostgreSQL
+      port: 5432,
       username: 'postgres',
       password: 'CMeky38308',
       database: 'TP1',
-      entities: [User,Cv,Skill],  // Add all your entities here
-      synchronize: true,  // In production, set this to false and handle migrations manually
+      entities: [User,Cv,Skill],
+      synchronize: true,
     }),
     UserModule,
     CvModule,
@@ -35,6 +35,6 @@ export class AppModule {
   configure(consumer: MiddlewareConsumer) {
     consumer
       .apply(AuthMiddleware)
-      .forRoutes(CvControllerV2); // Middleware appliqué seulement à la version 2 du contrôleur CV
+      .forRoutes(CvControllerV2);
   }
 }

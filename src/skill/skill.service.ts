@@ -16,23 +16,6 @@ export class SkillService extends BaseService<Skill> {
     super(repository);
   }
 
-  create(createSkillDto: CreateSkillDto) {
-    return super.create(createSkillDto);
-  }
 
-  findAll() {
-    return super.findAll();
-  }
 
-  findOne(id: number) {
-    return super.findOne(id);
-  }
-
-  update(id: number, updateSkillDto: UpdateSkillDto) {
-    return super.update(id, updateSkillDto);
-  }
-
-  remove(id: number) {
-    return super.remove(id);
-  }
 }

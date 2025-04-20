@@ -22,8 +22,8 @@ export class CreateCvDto {
   @IsString()
   path: string;
 
-  // Change to DeepPartial<User>
-  user: DeepPartial<User>;  // Allows passing either full or partial user object
+
+  user: DeepPartial<User>;
 
 
   @IsOptional()
