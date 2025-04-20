@@ -15,23 +15,5 @@ export class UserService extends BaseService<User> { // Extending BaseService to
     super(repository); // Call the constructor of the base service with the repository
   }
 
-  create(createUserDto: CreateUserDto) {
-    return super.create(createUserDto);
-  }
 
-  findAll() {
-    return super.findAll();
-  }
-
-  findOne(id: number) {
-    return super.findOne(id);
-  }
-
-  update(id: number, updateUserDto: UpdateUserDto) {
-    return super.update(id, updateUserDto);
-  }
-
-  remove(id: number) {
-    return super.remove(id);
-  }
 }

@@ -9,22 +9,22 @@ export class AuthMiddleware implements NestMiddleware {
     const token = req.headers['auth-user'];
 
     if (!token || typeof token !== 'string') {
-      return res.status(401).json({ message: 'Accès refusé : token manquant.' });
+      return res.status(401).json({ message: 'Access refused : missing Token .' });
     }
 
     try {
-      const decoded = verify(token, 'secret'); // Remplace 'secret' par ta clé secrète
+      const decoded = verify(token, 'my_super_secret_key');
       const { userId } = decoded as { userId: number };
 
       if (!userId) {
-        return res.status(401).json({ message: 'Token invalide : userId manquant.' });
+        return res.status(401).json({ message: ' invalid Token : missing userId .' });
       }
 
-      // Injecte userId dans la requête
+
       (req as any).user = { id: userId };
       next();
     } catch (err) {
-      return res.status(401).json({ message: 'Token invalide ou expiré.' });
+      return res.status(401).json({ message: 'invalid or expired token.' });
     }
   }
 }
